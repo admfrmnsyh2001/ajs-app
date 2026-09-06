@@ -278,7 +278,8 @@ class _QuotationDetailScreenState extends State<QuotationDetailScreen> {
                   );
                   if (confirm == true && q.id != null) {
                     await _repo.deleteQuotation(q.id!);
-                    if (mounted) Navigator.pop(context, true);
+                    if (!context.mounted) return;
+                    Navigator.pop(context, true);
                   }
                 },
                 icon: const Icon(Icons.delete_outline, color: Colors.red),

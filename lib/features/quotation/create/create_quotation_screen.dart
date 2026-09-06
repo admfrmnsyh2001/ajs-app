@@ -254,7 +254,8 @@ class _CreateQuotationScreenState extends State<CreateQuotationScreen> {
       provider.nextStep();
     } else if (provider.currentStep == 3) {
       final result = await provider.saveQuotation();
-      if (result != null && mounted) {
+      if (!context.mounted) return;
+      if (result != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Penawaran berhasil disimpan!'),
@@ -262,7 +263,7 @@ class _CreateQuotationScreenState extends State<CreateQuotationScreen> {
           ),
         );
         Navigator.pop(context, true);
-      } else if (mounted) {
+      } else {
         _showSnackBar(context, 'Gagal menyimpan penawaran. Periksa kelengkapan data.');
       }
     }

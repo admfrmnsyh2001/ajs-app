@@ -54,12 +54,20 @@ class PdfGenerator {
                       pw.SizedBox(height: 3),
                       pw.Text(
                         AppStrings.companyTagline,
-                        style: const pw.TextStyle(fontSize: 10, color: PdfColors.grey800),
+                        style: pw.TextStyle(
+                          fontSize: 10,
+                          fontStyle: pw.FontStyle.italic,
+                          color: PdfColors.grey800,
+                        ),
                       ),
                       pw.SizedBox(height: 2),
                       pw.Text(
                         AppStrings.companyContactInfo,
-                        style: const pw.TextStyle(fontSize: 10, color: PdfColors.grey800),
+                        style: pw.TextStyle(
+                          fontSize: 10,
+                          fontStyle: pw.FontStyle.italic,
+                          color: PdfColors.grey800,
+                        ),
                       ),
                     ],
                   ),
