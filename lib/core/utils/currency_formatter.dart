@@ -11,17 +11,29 @@ class CurrencyFormatter {
 
   /// Formats double value to Rupiah string format, e.g. Rp 1.500.000
   static String formatRupiah(num val) {
-    return _currencyFormat.format(val);
+    try {
+      return _currencyFormat.format(val);
+    } catch (_) {
+      return 'Rp ${val.toStringAsFixed(0)}';
+    }
   }
 
   /// Formats double value without symbol, e.g. 1.500.000
   static String formatNumber(num val) {
-    return _numberFormat.format(val);
+    try {
+      return _numberFormat.format(val);
+    } catch (_) {
+      return val.toString();
+    }
   }
 
   /// Formats DateTime to Indonesian date string e.g. 06 Sep 2026
   static String formatDate(DateTime date) {
-    return DateFormat('dd MMM yyyy', 'id_ID').format(date);
+    try {
+      return DateFormat('dd MMM yyyy', 'id_ID').format(date);
+    } catch (_) {
+      return DateFormat('dd MMM yyyy').format(date);
+    }
   }
 
   /// Formats DateTime to readable ISO date YYYY-MM-DD
