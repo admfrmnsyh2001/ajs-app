@@ -2,9 +2,9 @@ class AppStrings {
   static const String appName = 'Penawaran Ku';
   static const String companyAbbr = 'AJS';
   static const String companyDefaultName = 'Abadi Jaya Steel';
-  static const String companyTagline = 'Spesialis besi & baja, kanopi, tangga, konstruksi bangunan dan lain-lain';
-  static const String companyContactInfo = 'Whatsapp : 08567876362 Amirudin, Jl Nangka 2 Pasir Putih Sawangan Kota depok';
-  static const String companyDefaultAddress = 'Jl Nangka 2 Pasir Putih Sawangan Kota depok';
+  static const String companyTagline = 'Spesialis Besi, Baja, Kanopi, Tangga, Konstruksi Bangunan dan Lainya';
+  static const String companyDefaultAddress = 'Jl. Nangka 2, Pasir Putih, Sawangan, Kota Depok';
+  static const String companyContactInfo = 'Whatsapp : 08567876362 - Amirudin';
   static const String companyDefaultPhone = '08567876362';
   static const String companyDefaultEmail = 'info@abadijayasteel.com';
 
