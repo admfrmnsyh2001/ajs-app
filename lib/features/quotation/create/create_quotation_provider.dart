@@ -219,6 +219,13 @@ class CreateQuotationProvider extends ChangeNotifier {
 
   // --- SUMMARY ACTIONS ---
 
+  bool get isTaxEnabled => _taxPercent > 0;
+
+  void toggleTax(bool enabled) {
+    _taxPercent = enabled ? 11.0 : 0.0;
+    notifyListeners();
+  }
+
   void updateDiscount(String value) {
     _discountPercent = double.tryParse(value) ?? 0.0;
     notifyListeners();

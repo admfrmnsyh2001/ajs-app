@@ -149,41 +149,63 @@ class SummaryStep extends StatelessWidget {
                   ),
                   const SizedBox(height: 14),
 
-                  // Tax Input
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 6,
-                        child: TextField(
-                          controller: provider.taxController,
-                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                          decoration: const InputDecoration(
-                            labelText: 'Pajak / PPN (%)',
-                            suffixText: '%',
-                            border: OutlineInputBorder(),
-                          ),
-                          onChanged: (val) => provider.updateTax(val),
-                        ),
+                  // Tax Checkbox Row (PPN 11%)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: provider.isTaxEnabled ? AppColors.primary.withOpacity(0.05) : Colors.grey[100],
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: provider.isTaxEnabled ? AppColors.primary.withOpacity(0.3) : AppColors.border,
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        flex: 6,
-                        child: Column(
+                    ),
+                    child: Row(
+                      children: [
+                        Checkbox(
+                          value: provider.isTaxEnabled,
+                          activeColor: AppColors.primary,
+                          onChanged: (val) => provider.toggleTax(val ?? false),
+                        ),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => provider.toggleTax(!provider.isTaxEnabled),
+                            child: const Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Gunakan PPN 11%',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.textPrimary,
+                                  ),
+                                ),
+                                Text(
+                                  'Pajak Pertambahan Nilai (PPN 11%)',
+                                  style: TextStyle(fontSize: 11, color: AppColors.textMuted),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             const Text('Nilai Pajak', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
                             Text(
-                              '+ ${CurrencyFormatter.formatRupiah(provider.taxAmount)}',
-                              style: const TextStyle(
+                              provider.isTaxEnabled
+                                  ? '+ ${CurrencyFormatter.formatRupiah(provider.taxAmount)}'
+                                  : 'Rp 0',
+                              style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.primary,
+                                color: provider.isTaxEnabled ? AppColors.primary : AppColors.textMuted,
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

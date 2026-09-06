@@ -25,33 +25,46 @@ class PdfGenerator {
         ),
         build: (pw.Context context) {
           return [
-            // Header Section
+            // Header Section (Kop Surat)
             pw.Row(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
-                pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    pw.Text(
-                      AppStrings.companyDefaultName,
-                      style: pw.TextStyle(
-                        fontSize: 16,
-                        fontWeight: pw.FontWeight.bold,
-                        color: PdfColor.fromHex('#1A3A5C'),
+                pw.Expanded(
+                  child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      pw.Text(
+                        AppStrings.companyAbbr,
+                        style: pw.TextStyle(
+                          fontSize: 22,
+                          fontWeight: pw.FontWeight.bold,
+                          color: PdfColor.fromHex('#1A3A5C'),
+                        ),
                       ),
-                    ),
-                    pw.SizedBox(height: 4),
-                    pw.Text(
-                      AppStrings.companyDefaultAddress,
-                      style: const pw.TextStyle(fontSize: 9, color: PdfColors.grey700),
-                    ),
-                    pw.Text(
-                      'Telp: ${AppStrings.companyDefaultPhone} | Email: ${AppStrings.companyDefaultEmail}',
-                      style: const pw.TextStyle(fontSize: 9, color: PdfColors.grey700),
-                    ),
-                  ],
+                      pw.SizedBox(height: 2),
+                      pw.Text(
+                        AppStrings.companyDefaultName,
+                        style: pw.TextStyle(
+                          fontSize: 14,
+                          fontWeight: pw.FontWeight.bold,
+                          color: PdfColor.fromHex('#1A3A5C'),
+                        ),
+                      ),
+                      pw.SizedBox(height: 3),
+                      pw.Text(
+                        AppStrings.companyTagline,
+                        style: const pw.TextStyle(fontSize: 10, color: PdfColors.grey800),
+                      ),
+                      pw.SizedBox(height: 2),
+                      pw.Text(
+                        AppStrings.companyContactInfo,
+                        style: const pw.TextStyle(fontSize: 10, color: PdfColors.grey800),
+                      ),
+                    ],
+                  ),
                 ),
+                pw.SizedBox(width: 12),
                 pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.end,
                   children: [
@@ -83,6 +96,7 @@ class PdfGenerator {
                 ),
               ],
             ),
+            pw.SizedBox(height: 8),
             pw.Divider(thickness: 1.5, color: PdfColor.fromHex('#1A3A5C')),
             pw.SizedBox(height: 12),
 
