@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../app/routes.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/utils/pdf_generator.dart';
 import '../../../data/models/quotation_model.dart';
 import '../../../data/repositories/quotation_repository.dart';
 import 'quotation_card_widget.dart';
@@ -111,6 +112,7 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
                               },
                               child: QuotationCardWidget(
                                 quotation: q,
+                                onShare: () => PdfGenerator.sharePdf(q),
                                 onTap: () async {
                                   final result = await Navigator.pushNamed(
                                     context,

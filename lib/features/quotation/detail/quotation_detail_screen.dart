@@ -60,6 +60,11 @@ class _QuotationDetailScreenState extends State<QuotationDetailScreen> {
         foregroundColor: Colors.white,
         actions: [
           IconButton(
+            icon: const Icon(Icons.share),
+            tooltip: 'Bagikan Penawaran',
+            onPressed: () => PdfGenerator.sharePdf(q),
+          ),
+          IconButton(
             icon: const Icon(Icons.picture_as_pdf),
             tooltip: 'Export PDF',
             onPressed: () => PdfGenerator.printOrSharePdf(q),
@@ -237,16 +242,29 @@ class _QuotationDetailScreenState extends State<QuotationDetailScreen> {
               ),
             const SizedBox(height: 24),
 
-            // Main Action Buttons (Export PDF & Print)
+            // Main Action Buttons (Share, Export PDF & Delete)
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
+                onPressed: () => PdfGenerator.sharePdf(q),
+                icon: const Icon(Icons.share_outlined),
+                label: const Text('Bagikan Penawaran (WhatsApp, Email, DLL)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.secondary,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
                 onPressed: () => PdfGenerator.printOrSharePdf(q),
                 icon: const Icon(Icons.print_outlined),
                 label: const Text('Cetak / Export PDF Penawaran', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  foregroundColor: Colors.white,
+                style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 ),

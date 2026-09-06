@@ -393,4 +393,13 @@ class PdfGenerator {
       name: 'Penawaran_${quotation.quotationNumber.replaceAll('/', '_')}',
     );
   }
+
+  static Future<void> sharePdf(QuotationModel quotation) async {
+    final pdfBytes = await generateQuotationPdf(quotation);
+    final sanitizedNo = quotation.quotationNumber.replaceAll('/', '_');
+    await Printing.sharePdf(
+      bytes: pdfBytes,
+      filename: 'Penawaran_$sanitizedNo.pdf',
+    );
+  }
 }

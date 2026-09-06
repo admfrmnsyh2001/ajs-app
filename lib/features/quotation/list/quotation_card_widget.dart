@@ -7,12 +7,14 @@ class QuotationCardWidget extends StatelessWidget {
   final QuotationModel quotation;
   final VoidCallback onTap;
   final VoidCallback? onDelete;
+  final VoidCallback? onShare;
 
   const QuotationCardWidget({
     super.key,
     required this.quotation,
     required this.onTap,
     this.onDelete,
+    this.onShare,
   });
 
   @override
@@ -51,9 +53,24 @@ class QuotationCardWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text(
-                    CurrencyFormatter.formatDate(quotation.createdAt),
-                    style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
+                  Row(
+                    children: [
+                      Text(
+                        CurrencyFormatter.formatDate(quotation.createdAt),
+                        style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
+                      ),
+                      if (onShare != null) ...[
+                        const SizedBox(width: 8),
+                        InkWell(
+                          onTap: onShare,
+                          borderRadius: BorderRadius.circular(20),
+                          child: const Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: Icon(Icons.share_outlined, size: 18, color: AppColors.primary),
+                          ),
+                        ),
+                      ],
+                    ],
                   ),
                 ],
               ),

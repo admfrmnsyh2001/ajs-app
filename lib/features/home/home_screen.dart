@@ -3,6 +3,7 @@ import '../../app/routes.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_strings.dart';
 import '../../core/utils/currency_formatter.dart';
+import '../../core/utils/pdf_generator.dart';
 import '../../data/models/quotation_model.dart';
 import '../../data/repositories/quotation_repository.dart';
 import '../quotation/list/quotation_card_widget.dart';
@@ -280,6 +281,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           final q = _recentQuotations[index];
                           return QuotationCardWidget(
                             quotation: q,
+                            onShare: () => PdfGenerator.sharePdf(q),
                             onTap: () async {
                               final result = await Navigator.pushNamed(
                                 context,

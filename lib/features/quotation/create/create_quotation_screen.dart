@@ -206,6 +206,38 @@ class _CreateQuotationScreenState extends State<CreateQuotationScreen> {
               ),
             ),
           if (provider.currentStep > 0) const SizedBox(width: 12),
+          if (provider.currentStep == 3) ...[
+            IconButton(
+              icon: const Icon(Icons.share, color: AppColors.primary),
+              tooltip: 'Bagikan PDF',
+              onPressed: () {
+                final client = provider.selectedClient ??
+                    ClientModel(
+                      name: provider.clientNameController.text.trim().isNotEmpty
+                          ? provider.clientNameController.text.trim()
+                          : 'Nama Klien',
+                      phone: provider.clientPhoneController.text.trim(),
+                      address: provider.clientAddressController.text.trim(),
+                      email: provider.clientEmailController.text.trim().isNotEmpty
+                          ? provider.clientEmailController.text.trim()
+                          : null,
+                    );
+                final quotation = QuotationModel(
+                  id: provider.existingQuotationId,
+                  quotationNumber: provider.quotationNumber,
+                  client: client,
+                  items: provider.items,
+                  discountPercent: provider.discountPercent,
+                  taxPercent: provider.taxPercent,
+                  notes: provider.notesController.text.trim().isNotEmpty
+                      ? provider.notesController.text.trim()
+                      : null,
+                );
+                PdfGenerator.sharePdf(quotation);
+              },
+            ),
+            const SizedBox(width: 8),
+          ],
           Expanded(
             flex: 6,
             child: ElevatedButton(
