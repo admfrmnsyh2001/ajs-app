@@ -34,6 +34,7 @@ class CreateQuotationProvider extends ChangeNotifier {
   final TextEditingController itemDescController = TextEditingController();
   final TextEditingController itemQtyController = TextEditingController();
   final TextEditingController itemPriceController = TextEditingController();
+  final TextEditingController itemUnitController = TextEditingController(text: 'm²');
   String _selectedUnit = 'm²';
   String get selectedUnit => _selectedUnit;
 
@@ -162,6 +163,7 @@ class CreateQuotationProvider extends ChangeNotifier {
 
   void setSelectedUnit(String unit) {
     _selectedUnit = unit;
+    itemUnitController.text = unit;
     notifyListeners();
   }
 
@@ -169,6 +171,7 @@ class CreateQuotationProvider extends ChangeNotifier {
     itemDescController.clear();
     itemQtyController.clear();
     itemPriceController.clear();
+    itemUnitController.text = 'm²';
     _selectedUnit = 'm²';
     _editingItemIndex = null;
     notifyListeners();
@@ -178,6 +181,7 @@ class CreateQuotationProvider extends ChangeNotifier {
     _editingItemIndex = index;
     final item = _items[index];
     itemDescController.text = item.description;
+    itemUnitController.text = item.unit;
     _selectedUnit = item.unit;
     itemQtyController.text = item.qty.toString();
     itemPriceController.text = item.unitPrice.toString();
@@ -186,6 +190,9 @@ class CreateQuotationProvider extends ChangeNotifier {
 
   void addOrUpdateItem() {
     final desc = itemDescController.text.trim();
+    final unit = itemUnitController.text.trim().isNotEmpty
+        ? itemUnitController.text.trim()
+        : _selectedUnit;
     final qty = double.tryParse(itemQtyController.text.trim()) ?? 0.0;
     final price = double.tryParse(itemPriceController.text.trim()) ?? 0.0;
 
@@ -195,7 +202,7 @@ class CreateQuotationProvider extends ChangeNotifier {
 
     final newItem = ItemModel(
       description: desc,
-      unit: _selectedUnit,
+      unit: unit,
       qty: qty,
       unitPrice: price,
     );

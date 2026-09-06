@@ -61,26 +61,29 @@ class ItemsStep extends StatelessWidget {
                   const SizedBox(height: 12),
                   Row(
                     children: [
-                      // Unit Dropdown
+                      // Satuan Field (Preset Dropdown + Manual Input)
                       Expanded(
                         flex: 4,
-                        child: DropdownButtonFormField<String>(
-                          value: provider.selectedUnit,
-                          decoration: const InputDecoration(
-                            labelText: 'Satuan',
-                            border: OutlineInputBorder(),
+                        child: TextField(
+                          controller: provider.itemUnitController,
+                          decoration: InputDecoration(
+                            labelText: 'Satuan *',
+                            hintText: 'm², unit...',
+                            border: const OutlineInputBorder(),
+                            suffixIcon: PopupMenuButton<String>(
+                              icon: const Icon(Icons.arrow_drop_down),
+                              tooltip: 'Pilih Satuan Standar',
+                              onSelected: (unit) {
+                                provider.setSelectedUnit(unit);
+                              },
+                              itemBuilder: (context) => AppStrings.availableUnits.map((unit) {
+                                return PopupMenuItem<String>(
+                                  value: unit,
+                                  child: Text(unit),
+                                );
+                              }).toList(),
+                            ),
                           ),
-                          items: AppStrings.availableUnits.map((unit) {
-                            return DropdownMenuItem(
-                              value: unit,
-                              child: Text(unit),
-                            );
-                          }).toList(),
-                          onChanged: (val) {
-                            if (val != null) {
-                              provider.setSelectedUnit(val);
-                            }
-                          },
                         ),
                       ),
                       const SizedBox(width: 10),

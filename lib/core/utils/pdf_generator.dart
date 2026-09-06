@@ -14,6 +14,11 @@ class PdfGenerator {
     final fontBold = await PdfGoogleFonts.poppinsBold();
     final fontItalic = await PdfGoogleFonts.poppinsItalic();
 
+    pw.ImageProvider? logoImage;
+    try {
+      logoImage = await imageFromAssetBundle('assets/images/logo.jpg');
+    } catch (_) {}
+
     pdf.addPage(
       pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
@@ -30,6 +35,14 @@ class PdfGenerator {
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
+                if (logoImage != null) ...[
+                  pw.Container(
+                    width: 50,
+                    height: 50,
+                    margin: const pw.EdgeInsets.only(right: 10),
+                    child: pw.Image(logoImage),
+                  ),
+                ],
                 pw.Expanded(
                   child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
