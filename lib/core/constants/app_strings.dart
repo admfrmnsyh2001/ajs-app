@@ -1,9 +1,9 @@
 class AppStrings {
   static const String appName = 'Penawaran Ku';
-  static const String companyDefaultName = 'CV. JASA KONTRAKTOR UTAMA';
+  static const String companyDefaultName = 'Abadi Jaya Steel';
   static const String companyDefaultAddress = 'Jl. Raya Industri No. 88, Jakarta';
   static const String companyDefaultPhone = '0812-3456-7890';
-  static const String companyDefaultEmail = 'info@jasakontraktor.com';
+  static const String companyDefaultEmail = 'info@abadijayasteel.com';
 
   // Common units for contractors & service providers
   static const List<String> availableUnits = [
