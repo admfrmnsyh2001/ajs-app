@@ -9,7 +9,6 @@ class QuotationModel {
   final double discountPercent;
   final double taxPercent;
   final String? notes;
-  final String status;
   final DateTime createdAt;
 
   QuotationModel({
@@ -20,7 +19,6 @@ class QuotationModel {
     this.discountPercent = 0.0,
     this.taxPercent = 11.0,
     this.notes,
-    this.status = 'draft',
     DateTime? createdAt,
   }) : createdAt = createdAt ?? DateTime.now();
 
@@ -41,7 +39,6 @@ class QuotationModel {
       'discount_percent': discountPercent,
       'tax_percent': taxPercent,
       'notes': notes,
-      'status': status,
       'created_at': createdAt.toIso8601String(),
     };
   }
@@ -63,7 +60,6 @@ class QuotationModel {
       discountPercent: (map['discount_percent'] as num?)?.toDouble() ?? 0.0,
       taxPercent: (map['tax_percent'] as num?)?.toDouble() ?? 11.0,
       notes: map['notes'] as String?,
-      status: map['status'] as String? ?? 'draft',
       createdAt: map['created_at'] != null
           ? DateTime.parse(map['created_at'] as String)
           : DateTime.now(),
@@ -78,7 +74,6 @@ class QuotationModel {
     double? discountPercent,
     double? taxPercent,
     String? notes,
-    String? status,
     DateTime? createdAt,
   }) {
     return QuotationModel(
@@ -89,7 +84,6 @@ class QuotationModel {
       discountPercent: discountPercent ?? this.discountPercent,
       taxPercent: taxPercent ?? this.taxPercent,
       notes: notes ?? this.notes,
-      status: status ?? this.status,
       createdAt: createdAt ?? this.createdAt,
     );
   }

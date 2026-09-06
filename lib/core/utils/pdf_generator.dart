@@ -16,8 +16,12 @@ class PdfGenerator {
 
     pw.ImageProvider? logoImage;
     try {
-      logoImage = await imageFromAssetBundle('assets/images/logo.jpg');
-    } catch (_) {}
+      logoImage = await imageFromAssetBundle('assets/images/ajs-penawaran.png');
+    } catch (_) {
+      try {
+        logoImage = await imageFromAssetBundle('assets/images/logo.png');
+      } catch (_) {}
+    }
 
     pdf.addPage(
       pw.MultiPage(

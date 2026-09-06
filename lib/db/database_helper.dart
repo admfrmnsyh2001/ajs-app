@@ -58,7 +58,6 @@ class DatabaseHelper {
         discount_percent REAL NOT NULL DEFAULT 0.0,
         tax_percent REAL NOT NULL DEFAULT 11.0,
         notes TEXT,
-        status TEXT NOT NULL DEFAULT 'draft',
         created_at TEXT NOT NULL
       )
     ''');
@@ -148,10 +147,7 @@ class DatabaseHelper {
     });
   }
 
-  Future<List<QuotationModel>> getAllQuotations({
-    String? searchQuery,
-    String? statusFilter,
-  }) async {
+  Future<List<QuotationModel>> getAllQuotations({String? searchQuery}) async {
     final db = await instance.database;
     String? whereClause;
     List<dynamic> whereArgs = [];
@@ -159,15 +155,6 @@ class DatabaseHelper {
     if (searchQuery != null && searchQuery.isNotEmpty) {
       whereClause = '(client_name LIKE ? OR quotation_number LIKE ?)';
       whereArgs.addAll(['%$searchQuery%', '%$searchQuery%']);
-    }
-
-    if (statusFilter != null && statusFilter.isNotEmpty && statusFilter != 'all') {
-      if (whereClause != null) {
-        whereClause += ' AND status = ?';
-      } else {
-        whereClause = 'status = ?';
-      }
-      whereArgs.add(statusFilter);
     }
 
     final result = await db.query(
@@ -238,16 +225,6 @@ class DatabaseHelper {
     });
   }
 
-  Future<int> updateQuotationStatus(int quotationId, String newStatus) async {
-    final db = await instance.database;
-    return await db.update(
-      'quotations',
-      {'status': newStatus},
-      where: 'id = ?',
-      whereArgs: [quotationId],
-    );
-  }
-
   Future<int> deleteQuotation(int id) async {
     final db = await instance.database;
     return await db.delete(
@@ -288,15 +265,11 @@ class DatabaseHelper {
     }
 
     final totalCount = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM quotations')) ?? 0;
-    final draftCount = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM quotations WHERE status = ?', ['draft'])) ?? 0;
-    final approvedCount = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM quotations WHERE status = ?', ['approved'])) ?? 0;
 
     return {
       'monthCount': quotationsThisMonth.length,
       'monthValue': totalValueMonth,
       'totalCount': totalCount,
-      'draftCount': draftCount,
-      'approvedCount': approvedCount,
     };
   }
 

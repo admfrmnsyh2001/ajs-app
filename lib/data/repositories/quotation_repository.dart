@@ -6,11 +6,9 @@ class QuotationRepository {
 
   Future<List<QuotationModel>> fetchQuotations({
     String? searchQuery,
-    String? statusFilter,
   }) async {
     return await _dbHelper.getAllQuotations(
       searchQuery: searchQuery,
-      statusFilter: statusFilter,
     );
   }
 
@@ -24,10 +22,6 @@ class QuotationRepository {
 
   Future<int> updateQuotation(QuotationModel quotation) async {
     return await _dbHelper.updateQuotation(quotation);
-  }
-
-  Future<int> updateQuotationStatus(int quotationId, String status) async {
-    return await _dbHelper.updateQuotationStatus(quotationId, status);
   }
 
   Future<int> deleteQuotation(int id) async {

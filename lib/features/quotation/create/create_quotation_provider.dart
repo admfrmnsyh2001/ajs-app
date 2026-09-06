@@ -245,7 +245,7 @@ class CreateQuotationProvider extends ChangeNotifier {
 
   // --- SAVE QUOTATION ---
 
-  Future<QuotationModel?> saveQuotation({String status = 'draft'}) async {
+  Future<QuotationModel?> saveQuotation() async {
     final clientName = clientNameController.text.trim();
     final clientPhone = clientPhoneController.text.trim();
     final clientAddress = clientAddressController.text.trim();
@@ -281,7 +281,6 @@ class CreateQuotationProvider extends ChangeNotifier {
       discountPercent: _discountPercent,
       taxPercent: _taxPercent,
       notes: notesController.text.trim().isNotEmpty ? notesController.text.trim() : null,
-      status: status,
     );
 
     if (_existingQuotationId != null) {

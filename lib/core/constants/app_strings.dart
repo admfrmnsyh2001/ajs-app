@@ -23,9 +23,5 @@ class AppStrings {
     'hari'
   ];
 
-  // Quotation Status
-  static const String statusDraft = 'draft';
-  static const String statusSent = 'sent';
-  static const String statusApproved = 'approved';
-  static const String statusRejected = 'rejected';
+
 }

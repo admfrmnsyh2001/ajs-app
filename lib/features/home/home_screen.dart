@@ -44,8 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
     final monthValue = (_stats['monthValue'] as num?)?.toDouble() ?? 0.0;
     final monthCount = (_stats['monthCount'] as int?) ?? 0;
     final totalCount = (_stats['totalCount'] as int?) ?? 0;
-    final draftCount = (_stats['draftCount'] as int?) ?? 0;
-    final approvedCount = (_stats['approvedCount'] as int?) ?? 0;
 
     return Scaffold(
       appBar: AppBar(
@@ -54,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ClipRRect(
               borderRadius: BorderRadius.circular(6),
               child: Image.asset(
-                'assets/images/logo.jpg',
+                'assets/images/ajs-penawaran.png',
                 height: 28,
                 width: 28,
                 fit: BoxFit.cover,
@@ -149,11 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const SizedBox(height: 16),
                           Row(
                             children: [
-                              _buildMiniStatBadge('Total: $totalCount', Colors.white24),
-                              const SizedBox(width: 8),
-                              _buildMiniStatBadge('Draft: $draftCount', AppColors.statusDraftBg.withOpacity(0.3)),
-                              const SizedBox(width: 8),
-                              _buildMiniStatBadge('Disetujui: $approvedCount', AppColors.statusApprovedBg.withOpacity(0.3)),
+                              _buildMiniStatBadge('Total: $totalCount Penawaran', Colors.white24),
                             ],
                           ),
                         ],

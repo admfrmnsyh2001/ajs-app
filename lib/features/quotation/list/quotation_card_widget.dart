@@ -17,34 +17,6 @@ class QuotationCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color statusColor;
-    Color statusBg;
-    String statusText;
-
-    switch (quotation.status.toLowerCase()) {
-      case 'approved':
-        statusColor = AppColors.statusApproved;
-        statusBg = AppColors.statusApprovedBg;
-        statusText = 'Disetujui';
-        break;
-      case 'sent':
-        statusColor = AppColors.statusSent;
-        statusBg = AppColors.statusSentBg;
-        statusText = 'Terkirim';
-        break;
-      case 'rejected':
-        statusColor = AppColors.statusRejected;
-        statusBg = AppColors.statusRejectedBg;
-        statusText = 'Ditolak';
-        break;
-      case 'draft':
-      default:
-        statusColor = AppColors.statusDraft;
-        statusBg = AppColors.statusDraftBg;
-        statusText = 'Draft';
-        break;
-    }
-
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       elevation: 0,
@@ -60,7 +32,7 @@ class QuotationCardWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Top Row: Number & Status Badge
+              // Top Row: Number Badge
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -79,20 +51,9 @@ class QuotationCardWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: statusBg,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      statusText,
-                      style: TextStyle(
-                        color: statusColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                      ),
-                    ),
+                  Text(
+                    CurrencyFormatter.formatDate(quotation.createdAt),
+                    style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
                   ),
                 ],
               ),
@@ -109,16 +70,9 @@ class QuotationCardWidget extends StatelessWidget {
               ),
               const SizedBox(height: 4),
 
-              // Date & Item Count
+              // Item Count
               Row(
                 children: [
-                  const Icon(Icons.calendar_today_outlined, size: 13, color: AppColors.textMuted),
-                  const SizedBox(width: 4),
-                  Text(
-                    CurrencyFormatter.formatDate(quotation.createdAt),
-                    style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
-                  ),
-                  const SizedBox(width: 12),
                   const Icon(Icons.format_list_bulleted, size: 13, color: AppColors.textMuted),
                   const SizedBox(width: 4),
                   Text(

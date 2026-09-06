@@ -85,10 +85,6 @@ class _QuotationDetailScreenState extends State<QuotationDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Status Changer Bar
-            _buildStatusHeaderCard(q),
-            const SizedBox(height: 16),
-
             // Client Info Card
             Card(
               elevation: 0,
@@ -293,39 +289,6 @@ class _QuotationDetailScreenState extends State<QuotationDetailScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildStatusHeaderCard(QuotationModel q) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text('Status Penawaran:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-          DropdownButton<String>(
-            value: q.status,
-            underline: const SizedBox(),
-            items: const [
-              DropdownMenuItem(value: 'draft', child: Text('Draft', style: TextStyle(color: AppColors.statusDraft, fontWeight: FontWeight.bold))),
-              DropdownMenuItem(value: 'sent', child: Text('Terkirim', style: TextStyle(color: AppColors.statusSent, fontWeight: FontWeight.bold))),
-              DropdownMenuItem(value: 'approved', child: Text('Disetujui', style: TextStyle(color: AppColors.statusApproved, fontWeight: FontWeight.bold))),
-              DropdownMenuItem(value: 'rejected', child: Text('Ditolak', style: TextStyle(color: AppColors.statusRejected, fontWeight: FontWeight.bold))),
-            ],
-            onChanged: (newStatus) async {
-              if (newStatus != null && q.id != null) {
-                await _repo.updateQuotationStatus(q.id!, newStatus);
-                _loadQuotationDetail();
-              }
-            },
-          ),
-        ],
       ),
     );
   }

@@ -18,7 +18,6 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
 
   List<QuotationModel> _quotations = [];
   bool _isLoading = true;
-  String _selectedStatus = 'all';
 
   @override
   void initState() {
@@ -30,7 +29,6 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
     setState(() => _isLoading = true);
     final data = await _repo.fetchQuotations(
       searchQuery: _searchController.text.trim(),
-      statusFilter: _selectedStatus,
     );
     setState(() {
       _quotations = data;
@@ -49,54 +47,30 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
       ),
       body: Column(
         children: [
-          // Search & Filter Header Container
+          // Search Header Container
           Container(
             color: Colors.white,
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                // Search Field
-                TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    hintText: 'Cari nama klien / nomor penawaran...',
-                    prefixIcon: const Icon(Icons.search),
-                    suffixIcon: _searchController.text.isNotEmpty
-                        ? IconButton(
-                            icon: const Icon(Icons.clear),
-                            onPressed: () {
-                              _searchController.clear();
-                              _loadQuotations();
-                            },
-                          )
-                        : null,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                  ),
-                  onChanged: (val) => _loadQuotations(),
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'Cari nama klien / nomor penawaran...',
+                prefixIcon: const Icon(Icons.search),
+                suffixIcon: _searchController.text.isNotEmpty
+                    ? IconButton(
+                        icon: const Icon(Icons.clear),
+                        onPressed: () {
+                          _searchController.clear();
+                          _loadQuotations();
+                        },
+                      )
+                    : null,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                const SizedBox(height: 12),
-
-                // Filter Chips
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      _buildFilterChip('all', 'Semua'),
-                      const SizedBox(width: 8),
-                      _buildFilterChip('draft', 'Draft'),
-                      const SizedBox(width: 8),
-                      _buildFilterChip('sent', 'Terkirim'),
-                      const SizedBox(width: 8),
-                      _buildFilterChip('approved', 'Disetujui'),
-                      const SizedBox(width: 8),
-                      _buildFilterChip('rejected', 'Ditolak'),
-                    ],
-                  ),
-                ),
-              ],
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              ),
+              onChanged: (val) => _loadQuotations(),
             ),
           ),
           const Divider(height: 1),
@@ -166,27 +140,6 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
         icon: const Icon(Icons.add, color: Colors.white),
         label: const Text('Buat Baru', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       ),
-    );
-  }
-
-  Widget _buildFilterChip(String statusKey, String label) {
-    final isSelected = _selectedStatus == statusKey;
-    return FilterChip(
-      selected: isSelected,
-      label: Text(label),
-      selectedColor: AppColors.primary,
-      checkmarkColor: Colors.white,
-      labelStyle: TextStyle(
-        color: isSelected ? Colors.white : AppColors.textPrimary,
-        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-        fontSize: 12,
-      ),
-      onSelected: (selected) {
-        if (selected) {
-          setState(() => _selectedStatus = statusKey);
-          _loadQuotations();
-        }
-      },
     );
   }
 
