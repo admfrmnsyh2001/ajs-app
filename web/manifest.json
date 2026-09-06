@@ -1,6 +1,6 @@
 {
-    "name": "ajs_app",
-    "short_name": "ajs_app",
+    "name": "Penawaran-App",
+    "short_name": "Penawaran-App",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

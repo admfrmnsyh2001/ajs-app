@@ -1,5 +1,5 @@
 class AppStrings {
-  static const String appName = 'Penawaran App';
+  static const String appName = 'Penawaran-App';
   static const String companyAbbr = 'AJS';
   static const String companyDefaultName = 'Abadi Jaya Steel';
   static const String companyTagline = 'Spesialis Besi, Baja, Kanopi, Tangga, Konstruksi Bangunan dan Lainya';
